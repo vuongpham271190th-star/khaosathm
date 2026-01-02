@@ -1,0 +1,91 @@
+export const CLASS_TEACHER_MAP: Record<string, string[]> = {
+  "Sun 1": ["Bùi Thùy Liên", "Vi Thị Thức"],
+  "Sun 2": ["Lê Thị Trà My", "Lê Thị Lâm",],
+  "Sun 3": ["Trần Thị Thu Hằng", "Vũ Thị Vân Anh"],
+  "Moon 1": ["Trần Hương Thảo", "Bùi Diệu Hằng"],
+  "Moon 2": ["Vũ Thị Tuyết", "Đoàn Uyển Nhi"],
+  "Moon 3": ["Phạm Thị Liên", "Nguyễn Thanh Tâm"],
+  "Star 1": ["Trương Thị Phượng", "Nguyễn Thị Phương"],
+  "Star 2": ["Đỗ Thị Hà", "Nguyễn Thị Xuân Hương"],
+  "Sky 1": ["Phạm Thị Thúy", "Nguyễn Anh Phương", "Đỗ Thị Mai"],
+  "Sky 2": ["Lê Thị Lưu Ly", "Vũ Thị Thu", "Lê Thị An"],
+};
+
+export const GENERAL_RATING_ITEMS = [
+  "Giáo viên Tiếng Anh",
+  "Dịch vụ khác",
+];
+
+export const CLASSES = Object.keys(CLASS_TEACHER_MAP);
+
+export const LOCALES = {
+  vi: {
+    appName: "HỆ THỐNG ĐÁNH GIÁ CHẤT LƯỢNG DỊCH VỤ",
+    parentView: "Dành cho Phụ huynh",
+    adminView: "Dành cho Quản trị",
+    formTitle: "PHIẾU KHẢO SÁT MỨC ĐỘ HÀI LÒNG CỦA PHỤ HUYNH THÁNG 12",
+    formDescription: "Phiếu khảo sát nhằm thu thập ý kiến đánh giá chung về chất lượng đội ngũ giáo viên góp phần nâng cao chất lượng nhà trường. Mọi thông tin trong phiếu được bảo mật tuyệt đối và không gửi trực tiếp đến giáo viên giảng dạy",
+    hotline: "Số hotline: 0983.511.205 - 0988.925.018",
+    classSelectLabel: "Chọn lớp của con",
+    classSelectPlaceholder: "Vui lòng chọn lớp",
+    
+    satisfactionRatingTitle: "Đánh giá mức độ hài lòng",
+    unsatisfied: "Chưa hài lòng",
+    satisfied: "Hài lòng",
+    otherCommentsTitle: "Ý kiến khác",
+
+    commentPlaceholder: "Văn bản trả lời dài",
+    submitButton: "Gửi Đánh Giá",
+    successMessage: "Nhà trường trân trọng cảm ơn các ý kiến từ Quý Phụ huynh trong khảo sát và sẽ xem xét để cải thiện trong thời gian tới.",
+    adminTitle: "Bảng Điều Khiển Đánh Giá",
+    noReviews: "Chưa có đánh giá nào được gửi.",
+    onDate: "vào ngày",
+    loginTitle: "Đăng Nhập",
+    username: "Tên đăng nhập",
+    password: "Mật khẩu",
+    loginButton: "Đăng Nhập",
+    logoutButton: "Đăng xuất",
+    welcome: "Xin chào",
+    adminFilterLabel: "Lọc theo lớp",
+    allClasses: "Tất cả các lớp",
+    totalReviews: "Tổng số lượt đánh giá",
+    resetButton: "Xóa tất cả dữ liệu",
+    resetConfirmation: "Bạn có chắc chắn muốn xóa toàn bộ dữ liệu đánh giá không? Hành động này không thể hoàn tác.",
+    deleteReviewConfirmation: "Bạn có chắc chắn muốn xóa đánh giá này không?",
+    deleteIpLogConfirmation: "Bạn có chắc chắn muốn xóa nhật ký này không?",
+    
+    manageAdminsTitle: "Quản lý Admin",
+    addNewAdmin: "Thêm Admin mới",
+    newUsername: "Tên đăng nhập mới",
+    newPassword: "Mật khẩu mới",
+    addAdminButton: "Thêm Admin",
+    adminList: "Danh sách Admin",
+    deleteAdminButton: "Xóa",
+    deleteAdminConfirmation: "Bạn có chắc chắn muốn xóa tài khoản admin này không?",
+    
+    changePasswordButton: "Đổi mật khẩu",
+    exportExcelButton: "Xuất Excel",
+    changePasswordModalTitle: "Đổi mật khẩu của bạn",
+    newPasswordLabel: "Mật khẩu mới",
+    confirmPasswordLabel: "Xác nhận mật khẩu mới",
+    savePasswordButton: "Lưu thay đổi",
+    passwordsDoNotMatch: "Mật khẩu xác nhận không khớp.",
+    passwordChangedSuccess: "Đổi mật khẩu thành công!",
+    ipLogTitle: "Nhật ký các lần gửi bị chặn (Cùng lớp & IP)",
+    noBlockedLogs: "Không có lần gửi bị chặn nào được ghi lại.",
+
+    formErrors: {
+      classMissing: "Vui lòng chọn lớp của con.",
+      ratingMissing: "Vui lòng đánh giá tất cả các mục.",
+      comment: "Vui lòng nhập ý kiến.",
+      loginError: "Tên đăng nhập hoặc mật khẩu không chính xác.",
+      ipLimitError: "Bạn chỉ có thể gửi 1 lần đánh giá vui lòng không gửi lại",
+      apiError: "Có lỗi xảy ra, vui lòng thử lại.",
+      usernameExistsError: "Tên đăng nhập này đã tồn tại.",
+      userAddedSuccess: "Thêm tài khoản admin thành công.",
+      userDeletedSuccess: "Xóa tài khoản admin thành công.",
+      passwordUpdateError: "Không thể cập nhật mật khẩu.",
+      vpnOrProxyError: "Vui lòng tắt dịch vụ VPN/Proxy/DNS hoặc đảm bảo bạn đang truy cập từ Việt Nam để gửi đánh giá.",
+    },
+  },
+};
