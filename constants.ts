@@ -23,7 +23,7 @@ export const LOCALES = {
     appName: "HỆ THỐNG ĐÁNH GIÁ CHẤT LƯỢNG DỊCH VỤ",
     parentView: "Dành cho Phụ huynh",
     adminView: "Dành cho Quản trị",
-    formTitle: "PHIẾU KHẢO SÁT MỨC ĐỘ HÀI LÒNG CỦA PHỤ HUYNH THÁNG 12",
+    formTitle: "PHIẾU KHẢO SÁT MỨC ĐỘ HÀI LÒNG CỦA PHỤ HUYNH THÁNG 1",
     formDescription: "Phiếu khảo sát nhằm thu thập ý kiến đánh giá chung về chất lượng đội ngũ giáo viên góp phần nâng cao chất lượng nhà trường. Mọi thông tin trong phiếu được bảo mật tuyệt đối và không gửi trực tiếp đến giáo viên giảng dạy",
     hotline: "Số hotline: 0983.511.205 - 0988.925.018",
     classSelectLabel: "Chọn lớp của con",
