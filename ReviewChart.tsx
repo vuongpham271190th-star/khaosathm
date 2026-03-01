@@ -123,7 +123,7 @@ const ReviewChart: React.FC<ReviewChartProps> = ({ reviews, filterClass, detaile
                                     }
                                 }
                             }
-                        },
+                        } as any,
                         plugins: [centerTextPlugin, customCanvasBackgroundColor]
                     });
                     detailedChartInstances.current.set(label, instance);
@@ -187,7 +187,7 @@ const ReviewChart: React.FC<ReviewChartProps> = ({ reviews, filterClass, detaile
                         }
                       }
                     },
-                  },
+                  } as any,
                   plugins: [centerTextPlugin, customCanvasBackgroundColor]
                 });
             }

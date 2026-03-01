@@ -33,27 +33,20 @@ const ParentView: React.FC = () => {
         // Primary: freeipapi.com
         data = await tryFetch('https://freeipapi.com/api/json');
         setIpAddress(data.ipAddress);
-        const isProxy = data.isProxy || false;
-        if (data.countryCode !== 'VN' || isProxy) {
-          setIpError(t.formErrors.vpnOrProxyError);
-        }
       } catch (e) {
         console.warn("Primary IP check failed, trying fallback...", e);
         // Fallback: ipapi.co
         data = await tryFetch('https://ipapi.co/json/');
         setIpAddress(data.ip);
-        if (data.country_code !== 'VN') {
-          setIpError(t.formErrors.vpnOrProxyError);
-        }
       }
     } catch (e) {
       console.error("All IP Verification attempts failed:", e);
-      // If all fail, we still block but with a clearer message
-      setIpError('Không thể xác minh kết nối của bạn. Vui lòng kiểm tra lại mạng hoặc tắt VPN/Proxy.');
+      // Set a fallback IP so the user can still submit
+      setIpAddress('Unknown');
     } finally {
       setIsVerifyingIp(false);
     }
-  }, [t.formErrors.vpnOrProxyError]);
+  }, []);
 
   useEffect(() => {
     verifyIp();
