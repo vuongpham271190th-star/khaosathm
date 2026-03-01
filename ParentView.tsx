@@ -20,36 +20,36 @@ const ParentView: React.FC = () => {
   const verifyIp = useCallback(async () => {
     setIsVerifyingIp(true);
     setIpError(null);
+    
+    const tryFetch = async (url: string) => {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Fetch failed for ${url}`);
+      return res.json();
+    };
+
     try {
-      // Switched to a more robust service: ipwho.is
-      const res = await fetch('https://ipwho.is/');
-      
-      if (!res.ok) {
-        console.error(`IP Whois API response was not ok. Status: ${res.status}`);
-        throw new Error('IP Whois API request failed');
+      let data;
+      try {
+        // Primary: freeipapi.com
+        data = await tryFetch('https://freeipapi.com/api/json');
+        setIpAddress(data.ipAddress);
+        const isProxy = data.isProxy || false;
+        if (data.countryCode !== 'VN' || isProxy) {
+          setIpError(t.formErrors.vpnOrProxyError);
+        }
+      } catch (e) {
+        console.warn("Primary IP check failed, trying fallback...", e);
+        // Fallback: ipapi.co
+        data = await tryFetch('https://ipapi.co/json/');
+        setIpAddress(data.ip);
+        if (data.country_code !== 'VN') {
+          setIpError(t.formErrors.vpnOrProxyError);
+        }
       }
-
-      const data = await res.json();
-      
-      if (!data.success) {
-          console.error(`IP Whois API returned an error: ${data.message}`);
-          throw new Error(data.message || 'Failed to verify IP with Whois');
-      }
-
-      setIpAddress(data.ip); // Save the IP for submission
-      
-      // Safely destructure security object, providing a fallback.
-      const { vpn = true, proxy = true, hosting = true } = data.security || {};
-
-      // Block if not in Vietnam OR if it's a vpn/proxy/hosting service
-      if (data.country_code !== 'VN' || vpn || proxy || hosting) {
-        setIpError(t.formErrors.vpnOrProxyError);
-      }
-
     } catch (e) {
-      console.error("IP Verification Process Failed:", e);
-      // Default to blocking the submission if verification fails for any reason.
-      setIpError('Không thể xác minh kết nối của bạn. Vui lòng thử lại sau.');
+      console.error("All IP Verification attempts failed:", e);
+      // If all fail, we still block but with a clearer message
+      setIpError('Không thể xác minh kết nối của bạn. Vui lòng kiểm tra lại mạng hoặc tắt VPN/Proxy.');
     } finally {
       setIsVerifyingIp(false);
     }
