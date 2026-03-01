@@ -91,41 +91,43 @@ const ReviewChart: React.FC<ReviewChartProps> = ({ reviews, filterClass, detaile
                     }
                 };
 
-                const instance = new Chart(ctx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: [t.satisfied, t.unsatisfied],
-                        datasets: [{
-                            data: [itemData.satisfied, itemData.unsatisfied],
-                            backgroundColor: ['#10b981', '#ef4444'], // Green, Red
-                            borderColor: '#ffffff',
-                            borderWidth: 2,
-                            hoverOffset: 4,
-                        }],
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        cutout: '60%',
-                        plugins: {
-                            customCanvasBackgroundColor: { color: 'white' },
-                            title: { display: true, text: label, font: { size: 14, weight: 'bold', family: "'Be Vietnam Pro', sans-serif" }, color: textColor, padding: { bottom: 10 } },
-                            legend: { display: true, position: 'bottom', labels: { boxWidth: 10, font: {size: 12, family: "'Be Vietnam Pro', sans-serif"}, color: textColor } },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context: any) {
-                                        const value = context.raw as number;
-                                        const total = itemData.satisfied + itemData.unsatisfied;
-                                        const percentage = total > 0 ? (value / total * 100).toFixed(0) : 0;
-                                        return `${context.label}: ${value} (${percentage}%)`;
+                if (ctx) {
+                    const instance = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: [t.satisfied, t.unsatisfied],
+                            datasets: [{
+                                data: [itemData.satisfied, itemData.unsatisfied],
+                                backgroundColor: ['#10b981', '#ef4444'], // Green, Red
+                                borderColor: '#ffffff',
+                                borderWidth: 2,
+                                hoverOffset: 4,
+                            }],
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            cutout: '60%',
+                            plugins: {
+                                customCanvasBackgroundColor: { color: 'white' },
+                                title: { display: true, text: label, font: { size: 14, weight: 'bold', family: "'Be Vietnam Pro', sans-serif" }, color: textColor, padding: { bottom: 10 } },
+                                legend: { display: true, position: 'bottom', labels: { boxWidth: 10, font: {size: 12, family: "'Be Vietnam Pro', sans-serif"}, color: textColor } },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context: any) {
+                                            const value = context.raw as number;
+                                            const total = itemData.satisfied + itemData.unsatisfied;
+                                            const percentage = total > 0 ? (value / total * 100).toFixed(0) : 0;
+                                            return `${context.label}: ${value} (${percentage}%)`;
+                                        }
                                     }
                                 }
                             }
-                        }
-                    },
-                    plugins: [centerTextPlugin, customCanvasBackgroundColor]
-                });
-                detailedChartInstances.current.set(label, instance);
+                        } as any,
+                        plugins: [centerTextPlugin, customCanvasBackgroundColor]
+                    });
+                    detailedChartInstances.current.set(label, instance);
+                }
             }
         });
     } else {
@@ -155,37 +157,40 @@ const ReviewChart: React.FC<ReviewChartProps> = ({ reviews, filterClass, detaile
                 }
             };
 
-            summaryChartInstance.current = new Chart(summaryChartContainer.current.getContext('2d'), {
-              type: 'doughnut',
-              data: {
-                labels: labels,
-                datasets: [{ label: 'Tổng đánh giá', data: data, backgroundColor: generateColors(labels.length), borderColor: '#ffffff', borderWidth: 3, hoverOffset: 8 }],
-              },
-              options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '65%',
-                plugins: {
-                  customCanvasBackgroundColor: { color: 'white' },
-                  title: { display: true, text: `Lớp ${filterClass}`, font: { size: 16, weight: 'bold', family: "'Be Vietnam Pro', sans-serif" }, color: textColor, padding: { bottom: 15 } },
-                  legend: { position: 'bottom', labels: { color: textColor, font: { family: "'Be Vietnam Pro', sans-serif" }, boxWidth: 12, padding: 20 } },
-                  tooltip: {
-                    callbacks: {
-                      label: (context: any) => {
-                        const label = context.label || '';
-                        const itemData = aggregation[label];
-                        if (itemData) {
-                           const satisfiedPercent = itemData.total > 0 ? ((itemData.satisfied / itemData.total) * 100).toFixed(0) : 0;
-                           return [`${label}: ${itemData.total} đánh giá`, `  ${t.satisfied}: ${itemData.satisfied} (${satisfiedPercent}%)`, `  ${t.unsatisfied}: ${itemData.unsatisfied}`];
+            const ctx = summaryChartContainer.current.getContext('2d');
+            if (ctx) {
+                summaryChartInstance.current = new Chart(ctx, {
+                  type: 'doughnut',
+                  data: {
+                    labels: labels,
+                    datasets: [{ label: 'Tổng đánh giá', data: data, backgroundColor: generateColors(labels.length), borderColor: '#ffffff', borderWidth: 3, hoverOffset: 8 }],
+                  },
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                      customCanvasBackgroundColor: { color: 'white' },
+                      title: { display: true, text: `Lớp ${filterClass}`, font: { size: 16, weight: 'bold', family: "'Be Vietnam Pro', sans-serif" }, color: textColor, padding: { bottom: 15 } },
+                      legend: { position: 'bottom', labels: { color: textColor, font: { family: "'Be Vietnam Pro', sans-serif" }, boxWidth: 12, padding: 20 } },
+                      tooltip: {
+                        callbacks: {
+                          label: (context: any) => {
+                            const label = context.label || '';
+                            const itemData = aggregation[label];
+                            if (itemData) {
+                               const satisfiedPercent = itemData.total > 0 ? ((itemData.satisfied / itemData.total) * 100).toFixed(0) : 0;
+                               return [`${label}: ${itemData.total} đánh giá`, `  ${t.satisfied}: ${itemData.satisfied} (${satisfiedPercent}%)`, `  ${t.unsatisfied}: ${itemData.unsatisfied}`];
+                            }
+                            return label;
+                          }
                         }
-                        return label;
                       }
-                    }
-                  }
-                },
-              },
-              plugins: [centerTextPlugin, customCanvasBackgroundColor]
-            });
+                    },
+                  } as any,
+                  plugins: [centerTextPlugin, customCanvasBackgroundColor]
+                });
+            }
         }
     }
     
