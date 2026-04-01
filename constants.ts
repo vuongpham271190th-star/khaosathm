@@ -7,7 +7,7 @@ export const CLASS_TEACHER_MAP: Record<string, string[]> = {
   "Moon 3": ["Phạm Thị Liên", "Nguyễn Thanh Tâm"],
   "Star 1": ["Trương Thị Phượng", "Nguyễn Thị Phương"],
   "Star 2": ["Đỗ Thị Hà", "Nguyễn Thị Xuân Hương"],
-  "Sky 1": ["Phạm Thị Thúy", "Nguyễn Anh Phương", "Đỗ Thị Mai"],
+  "Sky 1": ["Phạm Thị Thúy", "Nguyễn Thị Ngân", "Đỗ Thị Mai"],
   "Sky 2": ["Lê Thị Lưu Ly", "Vũ Thị Thu", "Lê Thị An"],
 };
 
